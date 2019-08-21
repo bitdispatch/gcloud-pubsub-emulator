@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cmd=""
+
+for arg in "$@"
+do
+   cmd="$cmd $arg"
+done
+
+docker exec pubsub-sdk bash -c "python publisher.py  \"\$PUBSUB_PROJECT_ID\" $cmd"

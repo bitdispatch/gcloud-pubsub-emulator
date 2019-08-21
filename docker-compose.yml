@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+
+  pubsub-server:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    image: pubsub-server:1.0.0
+    container_name: pubsub-server
+    ports:
+      - "8085:8085"
+    restart: unless-stopped
+    command: gcloud beta emulators pubsub start --project=PROJECT_ID_EXAMPLE --host-port=0.0.0.0:8085
+
+  pubsub-sdk:
+    build:
+      context: .
+      dockerfile: Dockerfile-sdk
+    image: pubsub-sdk:1.0.0
+    container_name: pubsub-sdk
+    depends_on:
+      - pubsub-server
+    restart: unless-stopped
+    command: tail -f /dev/null
+    environment: 
+      PUBSUB_EMULATOR_HOST: pubsub-server:8085
+      PUBSUB_PROJECT_ID: PROJECT_ID_EXAMPLE

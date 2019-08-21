@@ -1,0 +1,11 @@
+FROM openjdk:14-oraclelinux7
+
+WORKDIR /home
+RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz --output google-cloud-sdk.tar.gz
+RUN tar xzvf google-cloud-sdk.tar.gz
+RUN rm -rf google-cloud-sdk.tar.gz
+
+RUN ln -s /home/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
+RUN gcloud components install beta pubsub-emulator
+
+CMD gcloud beta emulators pubsub start --project=PUBSUB_PROJECT_ID
