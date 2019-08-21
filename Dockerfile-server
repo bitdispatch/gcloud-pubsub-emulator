@@ -6,6 +6,7 @@ RUN tar xzvf google-cloud-sdk.tar.gz
 RUN rm -rf google-cloud-sdk.tar.gz
 
 RUN ln -s /home/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
+RUN gcloud components update
 RUN gcloud components install beta pubsub-emulator
 
 CMD gcloud beta emulators pubsub start --project=PUBSUB_PROJECT_ID
