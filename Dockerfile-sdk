@@ -1,9 +1,9 @@
-FROM python:3.6.9-slim-stretch
+FROM python:3.9
 
 WORKDIR /home
 RUN apt-get update
 RUN apt-get install -y git
 
-RUN git clone https://github.com/GoogleCloudPlatform/python-docs-samples.git
-WORKDIR /home/python-docs-samples/pubsub/cloud-client
+RUN git clone https://github.com/googleapis/python-pubsub.git
+WORKDIR /home/python-pubsub/samples/snippets/
 RUN pip install -r requirements.txt
